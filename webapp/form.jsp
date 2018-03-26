@@ -15,27 +15,33 @@
 				<section id="typography">
 				<div class="page-header">
 					<c:choose>
-						<c:when test="${empty user}"><h1>회원가입</h1></c:when>
-						<c:otherwise><h1>개인정보 수정</h1></c:otherwise>					
+						<c:when test="${isUpdate}"><h1>개인정보 수정</h1></c:when>
+						<c:otherwise><h1>회원가입</h1></c:otherwise>					
 					</c:choose>
 				</div>
 			
 				<c:set var="actionUrl" value="/users/save" />
-				<c:if test="${not empty user.userId }">
+				<c:if test="${isUpdate }">
 					<c:set var="actionUrl" value="/users/update" />
 				</c:if>
 				
 				<form class="form-horizontal" action="${actionUrl}" method="post">
+					<c:if test="${not empty errorMessage}">			
+						<div class="control-group">
+							<label class="error">${errorMessage}</label>
+						</div>
+					</c:if>	
+					
 					<div class="control-group">
 						<label class="control-label" for="userId">사용자 아이디</label>
 						<div class="controls">
 							<c:choose>
-								<c:when test="${empty user}">
-									<input type="text" name="userId" value="${user.userId }" />
-								</c:when>
-								<c:otherwise>
+								<c:when test="${isUpdate}">
 									<input type="hidden" name="userId" value="${user.userId }">
 									${user.userId }
+								</c:when>
+								<c:otherwise>
+									<input type="text" name="userId" value="${user.userId }" />
 								</c:otherwise>					
 							</c:choose>
 						</div>
@@ -62,8 +68,8 @@
 						<div class="controls">
 							<button type="submit" class="btn btn-primary">
 								<c:choose>
-									<c:when test="${empty user}">회원가입</c:when>
-									<c:otherwise>수정</c:otherwise>					
+									<c:when test="${isUpdate}">개인정보 수정</c:when>
+									<c:otherwise>회원가입</c:otherwise>					
 								</c:choose>
 							</button>
 						</div>

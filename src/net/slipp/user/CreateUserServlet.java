@@ -10,43 +10,29 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
 import net.slipp.support.MyValidatorFactory;
 
-@WebServlet("/users/update")
-public class UpdateServlet extends HttpServlet{
-	@Override
+/**
+ * Servlet implementation class SaveUserServlet
+ */
+@WebServlet("/users/save")
+public class CreateUserServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
-		String sessionUserId = SessionUtils.getStringValue(session, LoginServlet.SESSION_USER_ID);
+//		request.setCharacterEncoding("UTF-8");
 		
-		if (sessionUserId == null) {
-			response.sendRedirect("/");
-			return;
-		}
-		
-		String userId = request.getParameter("userId");
-		
-		if (!sessionUserId.equals(userId)) {
-			response.sendRedirect("/");
-			return;
-		}
-		
+		String userId = request.getParameter("userId");	// 4~12자 이하
 		String password = request.getParameter("password");
-		String name = request.getParameter("name");
+		String name = request.getParameter("name");		// 2~10자 이하
 		String email = request.getParameter("email");
-		
+
 		User user = new User(userId, password, name, email);
-		
 		Validator validator = MyValidatorFactory.createValidator();
 		Set<ConstraintViolation<User>> constraintViolations = validator.validate( user );
 		if (constraintViolations.size() > 0) {
 			request.setAttribute("user", user);
-			request.setAttribute("isUpdate", true);
 			String errorMessage = constraintViolations.iterator().next().getMessage();
 			forwardJSP(request, response, errorMessage);
 			return;
@@ -55,7 +41,7 @@ public class UpdateServlet extends HttpServlet{
 		UserDAO userDao = new UserDAO();
 		
 		try {
-			userDao.updateUser(user);
+			userDao.addUser(user);
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
@@ -69,4 +55,5 @@ public class UpdateServlet extends HttpServlet{
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/form.jsp");
 		dispatcher.forward(request, response);
 	}
+
 }
