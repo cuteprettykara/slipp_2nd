@@ -2,6 +2,7 @@ package net.slipp.user;
 
 import java.sql.SQLException;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -78,6 +79,10 @@ public class User {
 		this.email = email;
 	}
 
+	public User() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getUserId() {
 		return userId;
 	}
@@ -139,6 +144,10 @@ public class User {
 		}
 		
 		return true;
+	}
+
+	public boolean isSameUser(String userId) {
+		return this.userId.equals(userId);
 	}
 
 	

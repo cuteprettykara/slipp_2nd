@@ -1,6 +1,7 @@
 package net.slipp.user;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.Set;
 
@@ -13,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
+
+import org.apache.commons.beanutils.BeanUtilsBean;
 
 import net.slipp.support.MyValidatorFactory;
 
@@ -29,18 +32,17 @@ public class UpdateServlet extends HttpServlet{
 			return;
 		}
 		
-		String userId = request.getParameter("userId");
+		User user = new User(); 
+		try {
+			BeanUtilsBean.getInstance().populate(user, request.getParameterMap());
+		} catch (IllegalAccessException | InvocationTargetException e1) {
+			throw new ServletException(e1);
+		}
 		
-		if (!sessionUserId.equals(userId)) {
+		if (!user.isSameUser(sessionUserId)) {
 			response.sendRedirect("/");
 			return;
 		}
-		
-		String password = request.getParameter("password");
-		String name = request.getParameter("name");
-		String email = request.getParameter("email");
-		
-		User user = new User(userId, password, name, email);
 		
 		Validator validator = MyValidatorFactory.createValidator();
 		Set<ConstraintViolation<User>> constraintViolations = validator.validate( user );
