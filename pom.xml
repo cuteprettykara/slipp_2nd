@@ -47,6 +47,12 @@
 			<version>1.2</version>
 		</dependency>
 
+		<!-- <dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>4.0.0</version>
+		</dependency> -->
+
 		<!-- embedded tomcat 설정 -->
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
@@ -106,6 +112,17 @@
 					<wtpContextName>/</wtpContextName>
 				</configuration>
 			</plugin>
+			<!-- <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>3.0.2</version>
+				<configuration>
+					<outputDirectory>${project.basedir}/webapp/WEB-INF/lib</outputDirectory>
+					<overWriteReleases>false</overWriteReleases>
+					<overWriteSnapshots>false</overWriteSnapshots>
+					<overWriteIfNewer>true</overWriteIfNewer>
+				</configuration>
+			</plugin> -->
 		</plugins>
 	</build>
 </project>
