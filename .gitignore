@@ -1,7 +1,7 @@
-/.classpath
-/.project
 /tomcat.8080/
-/lib/
-/.settings/
-/webapp/WEB-INF/classes
 /target/
+/.project
+/.classpath
+/.settings/
+/lib/
+/webapp/WEB-INF/classes
