@@ -35,16 +35,6 @@ public class CreateUserServlet extends HttpServlet {
 			throw new ServletException(e1);
 		}
 		
-		
-//		String userId = request.getParameter("userId");	// 4~12자 이하
-//		String password = request.getParameter("password");
-//		String name = request.getParameter("name");		// 2~10자 이하
-//		String email = request.getParameter("email");
-
-//		User user = new User(userId, password, name, email);
-		
-		 
-		 
 		Validator validator = MyValidatorFactory.createValidator();
 		Set<ConstraintViolation<User>> constraintViolations = validator.validate( user );
 		if (constraintViolations.size() > 0) {

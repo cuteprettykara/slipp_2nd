@@ -38,7 +38,7 @@ public class UserDAOTest {
 	}
 	
 	@Test
-	public void Á¸ÀçÇÏÁö_¾Ê´Â_»ç¿ëÀÚ_Á¶È¸() throws Exception {
+	public void ì¡´ì¬í•˜ì§€_ì•ŠëŠ”_ì‚¬ìš©ì_ì¡°íšŒ() throws Exception {
 		User user = UserTest.TEST_USER;
 		userDao.removeUser(user.getUserId());
 		
