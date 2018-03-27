@@ -19,7 +19,11 @@
 		<div class="container-fluid">
 			<div class="row-fluid">
 				<div class="span6">
+<<<<<<< HEAD
 					<h1>한번 더 수정된 메인 페이지</h1>
+=======
+					<h1>수정된 메인 페이지</h1>
+>>>>>>> branch 'master' of https://github.com/cuteprettykara/slipp_2nd.git
 				</div>
 			</div>
 		</div>
