@@ -20,6 +20,7 @@
 			<div class="row-fluid">
 				<div class="span6">
 					<h1>한번 더 수정된 메인 페이지</h1>
+					<h1>수정된 메인 페이지</h1>
 				</div>
 			</div>
 		</div>
