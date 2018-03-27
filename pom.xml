@@ -15,6 +15,7 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
+			<scope>test</scope>
 		</dependency>
 
 		<dependency>
@@ -47,46 +48,50 @@
 			<version>1.2</version>
 		</dependency>
 
-		<!-- <dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>4.0.0</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>javax.servlet</groupId> <artifactId>javax.servlet-api</artifactId> 
+			<version>4.0.0</version> </dependency> -->
 
 		<!-- embedded tomcat 설정 -->
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-core</artifactId>
 			<version>${tomcat.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-logging-juli</artifactId>
 			<version>${tomcat.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
 			<version>${tomcat.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-jasper</artifactId>
 			<version>${tomcat.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-jasper-el</artifactId>
 			<version>${tomcat.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-jsp-api</artifactId>
 			<version>${tomcat.version}</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 
 	<build>
+		<finalName>qna</finalName>
 		<sourceDirectory>src</sourceDirectory>
 		<testSourceDirectory>test</testSourceDirectory>
 		<outputDirectory>webapp/WEB-INF/classes</outputDirectory>
@@ -112,17 +117,14 @@
 					<wtpContextName>/</wtpContextName>
 				</configuration>
 			</plugin>
-			<!-- <plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<version>3.0.2</version>
+				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
-					<outputDirectory>${project.basedir}/webapp/WEB-INF/lib</outputDirectory>
-					<overWriteReleases>false</overWriteReleases>
-					<overWriteSnapshots>false</overWriteSnapshots>
-					<overWriteIfNewer>true</overWriteIfNewer>
+					<webXml>webapp/WEB-INF/web.xml</webXml>
+					<warSourceDirectory>webapp</warSourceDirectory>
 				</configuration>
-			</plugin> -->
+			</plugin>
 		</plugins>
 	</build>
 </project>
