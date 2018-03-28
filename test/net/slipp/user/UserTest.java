@@ -10,7 +10,7 @@ import org.junit.Test;
 
 public class UserTest {
 
-	public static User TEST_USER = new User("prettykara", "1111", "³²»ó¹ü", "cuteprettykara@gmail.com");
+	public static User TEST_USER = new User("prettykara", "1111", "ï¿½ï¿½ï¿½ï¿½ï¿½", "cuteprettykara@gmail.com");
 	private UserDAO userDao;
 
 	@Before
@@ -45,7 +45,7 @@ public class UserTest {
 	
 	@Test(expected=UserNotFoundException.class)
 	public void loginWhenUserNotFound() throws Exception {
-		User.login("prettykara2", TEST_USER.getPassword());
+		User.login("userId", TEST_USER.getPassword());
 	}
 
 	@Test(expected=PasswordMismatchException.class)
