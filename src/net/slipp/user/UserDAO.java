@@ -14,7 +14,6 @@ public class UserDAO {
 			return DriverManager.getConnection("jdbc:mysql://localhost:3306/slipp_dev","scott", "tiger");
 			
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
 			return null;
 		}
 	}

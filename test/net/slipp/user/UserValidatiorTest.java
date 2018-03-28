@@ -12,9 +12,11 @@ import javax.validation.ValidatorFactory;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class UserValidatiorTest {
-
+	static final Logger logger = LoggerFactory.getLogger(UpdateFormUserServlet.class);
 	private static Validator validator;
 
 	@BeforeClass
@@ -25,13 +27,13 @@ public class UserValidatiorTest {
 	
 	@Test
 	public void userIdIsNull() {
-		User user = new User(null, "1111", "³²»ó¹ü", "");
+		User user = new User(null, "1111", "ï¿½ï¿½ï¿½ï¿½ï¿½", "");
 
 		Set<ConstraintViolation<User>> constraintViolations =
 				validator.validate( user );
 
 		assertEquals( 1, constraintViolations.size() );
-		System.out.println(constraintViolations.iterator().next().getMessage());
+		logger.debug(constraintViolations.iterator().next().getMessage());
 		/*assertEquals(
 				"may not be null",
 				constraintViolations.iterator().next().getMessage()
@@ -40,37 +42,37 @@ public class UserValidatiorTest {
 	
 	@Test
 	public void userIdLength() throws Exception {
-		User user = new User("us", "1111", "³²»ó¹ü", "");
+		User user = new User("us", "1111", "ï¿½ï¿½ï¿½ï¿½ï¿½", "");
 
 		Set<ConstraintViolation<User>> constraintViolations =
 				validator.validate( user );
 
 		assertEquals( 1, constraintViolations.size() );
-		System.out.println(constraintViolations.iterator().next().getMessage());
+		logger.debug(constraintViolations.iterator().next().getMessage());
 		
-		user = new User("prettykaraaaaa", "1111", "³²»ó¹ü", "");
+		user = new User("prettykaraaaaa", "1111", "ï¿½ï¿½ï¿½ï¿½ï¿½", "");
 
 		constraintViolations =
 				validator.validate( user );
 
 		assertEquals( 1, constraintViolations.size() );
-		System.out.println(constraintViolations.iterator().next().getMessage());
+		logger.debug(constraintViolations.iterator().next().getMessage());
 	}
 	
 	@Test
 	public void email() throws Exception {
-		User user = new User("userId", "1111", "³²»ó¹ü", "abcd");
+		User user = new User("userId", "1111", "ï¿½ï¿½ï¿½ï¿½ï¿½", "abcd");
 
 		Set<ConstraintViolation<User>> constraintViolations =
 				validator.validate( user );
 
 		assertEquals( 1, constraintViolations.size() );
-		System.out.println(constraintViolations.iterator().next().getMessage());
+		logger.debug(constraintViolations.iterator().next().getMessage());
 	}
 	
 	@Test
 	public void inalidUser() throws Exception {
-		User user = new User("us", "1111", "³²»ó¹ü", "abcd");
+		User user = new User("us", "1111", "ï¿½ï¿½ï¿½ï¿½ï¿½", "abcd");
 
 		Set<ConstraintViolation<User>> constraintViolations =
 				validator.validate( user );
@@ -81,7 +83,7 @@ public class UserValidatiorTest {
 		
 		while (violations.hasNext()) {
 			ConstraintViolation<User> each =  violations.next();
-			System.out.println(each.getPropertyPath() + " : " +  each.getMessage());
+			logger.debug("{} : {}", each.getPropertyPath(),  each.getMessage());
 		}
 	}
 }	

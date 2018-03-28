@@ -3,7 +3,6 @@ package net.slipp.user;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
-import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
@@ -16,6 +15,8 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import net.slipp.support.MyValidatorFactory;
 
@@ -24,6 +25,9 @@ import net.slipp.support.MyValidatorFactory;
  */
 @WebServlet("/users/save")
 public class CreateUserServlet extends HttpServlet {
+	
+	private static final Logger logger = LoggerFactory.getLogger(CreateUserServlet.class);
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		request.setCharacterEncoding("UTF-8");
 		
@@ -34,6 +38,8 @@ public class CreateUserServlet extends HttpServlet {
 		} catch (IllegalAccessException | InvocationTargetException e1) {
 			throw new ServletException(e1);
 		}
+		
+		logger.debug("User: {}", user);
 		
 		Validator validator = MyValidatorFactory.createValidator();
 		Set<ConstraintViolation<User>> constraintViolations = validator.validate( user );
@@ -49,7 +55,7 @@ public class CreateUserServlet extends HttpServlet {
 		try {
 			userDao.addUser(user);
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			logger.debug(e.getMessage());
 		}
 		
 		response.sendRedirect("/");

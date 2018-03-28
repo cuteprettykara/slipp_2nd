@@ -132,7 +132,6 @@ public class User {
 		try {
 			dbuser = userDao.findByUserId(userId);
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 		}
 		
 		if (dbuser == null) {

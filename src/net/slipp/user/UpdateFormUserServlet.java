@@ -11,9 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @WebServlet("/users/updateForm")
 public class UpdateFormUserServlet extends HttpServlet {
-
+	static final Logger logger = LoggerFactory.getLogger(UpdateFormUserServlet.class);
 	private static final long serialVersionUID = 1L;
 
 	@Override
@@ -26,7 +29,7 @@ public class UpdateFormUserServlet extends HttpServlet {
 			return;
 		}
 		
-		System.out.println("User Id: " + userId);
+		logger.debug("User Id: {}", userId);
 		
 		UserDAO userDao = new UserDAO();
 		User user = null;
@@ -39,7 +42,7 @@ public class UpdateFormUserServlet extends HttpServlet {
 			dispatcher.forward(request, response);
 
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			logger.debug(e.getMessage());
 		}
 		
 	}

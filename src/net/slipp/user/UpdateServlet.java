@@ -16,11 +16,15 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import net.slipp.support.MyValidatorFactory;
 
 @WebServlet("/users/update")
 public class UpdateServlet extends HttpServlet{
+	static final Logger logger = LoggerFactory.getLogger(UpdateServlet.class);
+	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
@@ -59,7 +63,7 @@ public class UpdateServlet extends HttpServlet{
 		try {
 			userDao.updateUser(user);
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			logger.debug(e.getMessage());
 		}
 		
 		response.sendRedirect("/");
