@@ -24,10 +24,10 @@ public class LoginServlet extends HttpServlet {
 			response.sendRedirect("/");
 			
 		} catch(UserNotFoundException e) {
-			forwardJSP(request, response, "Á¸ÀçÇÏÁö ¾Ê´Â »ç¿ëÀÚÀÔ´Ï´Ù. ´Ù½Ã ·Î±×ÀÎÇÏ¼¼¿ä.");
+			forwardJSP(request, response, "ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ì‚¬ìš©ì ì…ë‹ˆë‹¤. ë‹¤ì‹œ ë¡œê·¸ì¸í•˜ì„¸ìš”.");
 			
 		} catch(PasswordMismatchException e) {
-			forwardJSP(request, response, "ºñ¹Ğ¹øÈ£°¡ Æ²¸³´Ï´Ù. ´Ù½Ã ·Î±×ÀÎ ÇÏ¼¼¿ä..");
+			forwardJSP(request, response, "ë¹„ë°€ë²ˆí˜¸ê°€ í‹€ë¦½ë‹ˆë‹¤. ë‹¤ì‹œ ë¡œê·¸ì¸í•˜ì„¸ìš”.");
 		} 
 	}
 

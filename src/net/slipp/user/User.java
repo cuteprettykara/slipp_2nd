@@ -129,10 +129,7 @@ public class User {
 		
 		User dbuser = null;
 		
-		try {
-			dbuser = userDao.findByUserId(userId);
-		} catch (SQLException e) {
-		}
+		dbuser = userDao.findByUserId(userId);
 		
 		if (dbuser == null) {
 			throw new UserNotFoundException();

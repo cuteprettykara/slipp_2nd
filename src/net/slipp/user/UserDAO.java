@@ -4,17 +4,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import net.slipp.support.JdbcTemplate;
-import net.slipp.support.RowMapper;
+import net.slipp.support.jdbc.JdbcTemplate;
+import net.slipp.support.jdbc.RowMapper;
 
 public class UserDAO {
 
-	public void addUser(User user) throws SQLException {
+	public void addUser(User user) {
 		String sql = "insert into users values(?,?,?,?)";
 		JdbcTemplate.executeUpdate(sql, user.getUserId(), user.getPassword(), user.getName(), user.getEmail());
 	}
 
-	public User findByUserId(String userId) throws SQLException {
+	public User findByUserId(String userId) {
 		
 		RowMapper<User> rm = new RowMapper<User>() {
 			@Override
@@ -32,12 +32,12 @@ public class UserDAO {
 		return JdbcTemplate.executeQuery(sql, rm, userId);
 	}
 
-	public void removeUser(String userId) throws SQLException {
+	public void removeUser(String userId) {
 		String sql = "delete from users where userId=?";
 		JdbcTemplate.executeUpdate(sql, userId);
 	}
 
-	public void updateUser(User user) throws SQLException {
+	public void updateUser(User user) {
 		String sql = null;
 		sql =       "update users";
 		sql = sql + "   set password = ?, name = ?, email = ? ";
