@@ -16,17 +16,14 @@ public class UserDAO {
 
 	public User findByUserId(String userId) {
 		
-		RowMapper<User> rm = new RowMapper<User>() {
-			@Override
-			public User mapRow(ResultSet rs) throws SQLException {
-				String id = rs.getString("userId");
-				String password = rs.getString("password");
-				String name = rs.getString("name");
-				String email = rs.getString("email");
-				
-				return new User(id, password, name, email);
-			}
-		};
+		RowMapper<User> rm = rs->
+			new User(
+				rs.getString("userId"), 
+				rs.getString("password"), 
+				rs.getString("name"), 
+				rs.getString("email")
+			);
+		
 		
 		String sql = "select * from users where userId=?";
 		return JdbcTemplate.executeQuery(sql, rm, userId);
@@ -49,17 +46,14 @@ public class UserDAO {
 	public List<User> findUsers() throws SQLException {
 		String sql = "select * from users";
 		
-		RowMapper<User> rm = new RowMapper<User>() {
-			@Override
-			public User mapRow(ResultSet rs) throws SQLException {
-				String id = rs.getString("userId");
-				String password = rs.getString("password");
-				String name = rs.getString("name");
-				String email = rs.getString("email");
-				
-				return new User(id, password, name, email);
-			}
-		};
+		RowMapper<User> rm = rs->
+			new User(
+				rs.getString("userId"), 
+				rs.getString("password"), 
+				rs.getString("name"), 
+				rs.getString("email")
+			);
+		
 		
 		return JdbcTemplate.list(sql, rm);
 	}
