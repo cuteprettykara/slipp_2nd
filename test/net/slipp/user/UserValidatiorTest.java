@@ -15,6 +15,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import net.slipp.user.web.UpdateFormUserServlet;
+
 public class UserValidatiorTest {
 	static final Logger logger = LoggerFactory.getLogger(UpdateFormUserServlet.class);
 	private static Validator validator;

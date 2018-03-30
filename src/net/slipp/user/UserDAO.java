@@ -4,8 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import net.slipp.support.jdbc.JdbcTemplate;
-import net.slipp.support.jdbc.RowMapper;
+import core.jdbc.JdbcTemplate;
+import core.jdbc.RowMapper;
 
 public class UserDAO {
 

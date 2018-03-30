@@ -1,4 +1,4 @@
-package net.slipp.user;
+package net.slipp.user.web;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
@@ -18,33 +19,43 @@ import org.apache.commons.beanutils.BeanUtilsBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.slipp.support.MyValidatorFactory;
+import core.MyValidatorFactory;
+import core.SessionUtils;
+import net.slipp.user.User;
+import net.slipp.user.UserDAO;
 
-/**
- * Servlet implementation class SaveUserServlet
- */
-@WebServlet("/users/save")
-public class CreateUserServlet extends HttpServlet {
+@WebServlet("/users/update")
+public class UpdateServlet extends HttpServlet{
+	static final Logger logger = LoggerFactory.getLogger(UpdateServlet.class);
 	
-	private static final Logger logger = LoggerFactory.getLogger(CreateUserServlet.class);
-
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		request.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+		String sessionUserId = SessionUtils.getStringValue(session, LoginServlet.SESSION_USER_ID);
+		
+		if (sessionUserId == null) {
+			response.sendRedirect("/");
+			return;
+		}
 		
 		User user = new User(); 
-		
 		try {
 			BeanUtilsBean.getInstance().populate(user, request.getParameterMap());
 		} catch (IllegalAccessException | InvocationTargetException e1) {
 			throw new ServletException(e1);
 		}
 		
-		logger.debug("User: {}", user);
+		if (!user.isSameUser(sessionUserId)) {
+			response.sendRedirect("/");
+			return;
+		}
 		
 		Validator validator = MyValidatorFactory.createValidator();
 		Set<ConstraintViolation<User>> constraintViolations = validator.validate( user );
 		if (constraintViolations.size() > 0) {
 			request.setAttribute("user", user);
+			request.setAttribute("isUpdate", true);
 			String errorMessage = constraintViolations.iterator().next().getMessage();
 			forwardJSP(request, response, errorMessage);
 			return;
@@ -52,7 +63,7 @@ public class CreateUserServlet extends HttpServlet {
 		
 		UserDAO userDao = new UserDAO();
 		
-		userDao.addUser(user);
+		userDao.updateUser(user);
 		
 		response.sendRedirect("/");
 	}
@@ -63,5 +74,4 @@ public class CreateUserServlet extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/form.jsp");
 		dispatcher.forward(request, response);
 	}
-
 }

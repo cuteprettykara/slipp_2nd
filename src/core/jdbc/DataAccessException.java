@@ -1,4 +1,4 @@
-package net.slipp.support.jdbc;
+package core.jdbc;
 
 public class DataAccessException extends RuntimeException {
 

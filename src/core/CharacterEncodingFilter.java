@@ -1,4 +1,4 @@
-package net.slipp.support;
+package core;
 
 import java.io.IOException;
 

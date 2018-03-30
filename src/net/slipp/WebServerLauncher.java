@@ -6,7 +6,7 @@ import org.apache.catalina.startup.Tomcat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.slipp.user.CreateUserServlet;
+import net.slipp.user.web.CreateUserServlet;
 
 public class WebServerLauncher {
 	static final Logger logger = LoggerFactory.getLogger(CreateUserServlet.class);

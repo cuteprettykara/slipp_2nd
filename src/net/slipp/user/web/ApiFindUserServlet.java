@@ -1,4 +1,4 @@
-package net.slipp.user;
+package net.slipp.user.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import net.slipp.user.User;
+import net.slipp.user.UserDAO;
 
 @WebServlet("/api/users/find")
 public class ApiFindUserServlet extends HttpServlet {
